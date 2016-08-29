@@ -1,6 +1,7 @@
 import pandas
 import pandasql
 import csv
+import datetime
 
 """####################################1-Number of Rainy Days#########################################"""
 
@@ -38,7 +39,7 @@ def num_rainy_days(filename):
     return rainy_days
 
 
-"""###########################2-Temp on Foggy and Nonfoggy Days#######################################"""
+"""###########################2-Temp on Foggy and Non-foggy Days#######################################"""
 
 
 def max_temp_aggregate_by_fog(filename):
@@ -323,17 +324,17 @@ def get_hourly_exits(df):
 
     Example dataframe below:
 
-          Unnamed: 0   C/A  UNIT       SCP     DATEn     TIMEn    DESCn  ENTRIESn    EXITSn  ENTRIESn_hourly  EXITSn_hourly
-    0              0  A002  R051  02-00-00  05-01-11  00:00:00  REGULAR   3144312   1088151                0              0
-    1              1  A002  R051  02-00-00  05-01-11  04:00:00  REGULAR   3144335   1088159               23              8
-    2              2  A002  R051  02-00-00  05-01-11  08:00:00  REGULAR   3144353   1088177               18             18
-    3              3  A002  R051  02-00-00  05-01-11  12:00:00  REGULAR   3144424   1088231               71             54
-    4              4  A002  R051  02-00-00  05-01-11  16:00:00  REGULAR   3144594   1088275              170             44
-    5              5  A002  R051  02-00-00  05-01-11  20:00:00  REGULAR   3144808   1088317              214             42
-    6              6  A002  R051  02-00-00  05-02-11  00:00:00  REGULAR   3144895   1088328               87             11
-    7              7  A002  R051  02-00-00  05-02-11  04:00:00  REGULAR   3144905   1088331               10              3
-    8              8  A002  R051  02-00-00  05-02-11  08:00:00  REGULAR   3144941   1088420               36             89
-    9              9  A002  R051  02-00-00  05-02-11  12:00:00  REGULAR   3145094   1088753              153            333
+      Unnamed: 0   C/A  UNIT       SCP     DATEn     TIMEn    DESCn  ENTRIESn    EXITSn  ENTRIESn_hourly  EXITSn_hourly
+    0          0  A002  R051  02-00-00  05-01-11  00:00:00  REGULAR   3144312   1088151                0              0
+    1          1  A002  R051  02-00-00  05-01-11  04:00:00  REGULAR   3144335   1088159               23              8
+    2          2  A002  R051  02-00-00  05-01-11  08:00:00  REGULAR   3144353   1088177               18             18
+    3          3  A002  R051  02-00-00  05-01-11  12:00:00  REGULAR   3144424   1088231               71             54
+    4          4  A002  R051  02-00-00  05-01-11  16:00:00  REGULAR   3144594   1088275              170             44
+    5          5  A002  R051  02-00-00  05-01-11  20:00:00  REGULAR   3144808   1088317              214             42
+    6          6  A002  R051  02-00-00  05-02-11  00:00:00  REGULAR   3144895   1088328               87             11
+    7          7  A002  R051  02-00-00  05-02-11  04:00:00  REGULAR   3144905   1088331               10              3
+    8          8  A002  R051  02-00-00  05-02-11  08:00:00  REGULAR   3144941   1088420               36             89
+    9          9  A002  R051  02-00-00  05-02-11  12:00:00  REGULAR   3145094   1088753              153            333
     """
 
     # your code here
@@ -362,4 +363,25 @@ def time_to_hour(time):
     return hour
 
 
+'''#####################################11 -Reformat Subway Dates#####################################'''
 
+
+def reformat_subway_dates(date):
+    """
+    The dates in our subway data are formatted in the format month-day-year.
+    The dates in our weather underground data are formatted year-month-day.
+
+    In order to join these two data sets together, we'll want the dates formatted
+    the same way.  Write a function that takes as its input a date in the MTA Subway
+    data format, and returns a date in the weather underground format.
+
+    Hint:
+    There are a couple of useful functions in the datetime library that will
+    help on this assignment, called strptime and strftime.
+    More info can be seen here and further in the documentation section:
+    http://docs.python.org/2/library/datetime.html#datetime.datetime.strptime
+    """
+    # your code here
+    new_date = datetime.datetime.strptime(date, "%m-%d-%y")  # convert string to date format
+    date_formatted = new_date.strftime("%Y-%m-%d")  # specifying a new date format (still date format)
+    return date_formatted
