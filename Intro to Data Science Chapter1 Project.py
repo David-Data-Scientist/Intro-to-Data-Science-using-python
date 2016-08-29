@@ -1,5 +1,6 @@
 import pandas
-import numpy
+
+'''########################################A Simple Heuristic#######################################'''
 
 
 def simple_heuristic(path):
@@ -70,6 +71,163 @@ def simple_heuristic(path):
         else:
             predictions[passenger_id] = 1
 
-    return predictions
+    return predictions  # 78.68% Accuracy
+
+'''####################################A More Complex Heuristic#####################################'''
 
 
+def complex_heuristic(file_path):
+    """
+    You are given a list of Titanic passengers and their associated
+    information. More information about the data can be seen at the link below:
+    http://www.kaggle.com/c/titanic-gettingStarted/data
+
+    For this exercise, you need to write a more sophisticated algorithm
+    that will use the passengers' gender and their socioeconomical class and age
+    to predict if they survived the Titanic disaster.
+
+    You prediction should be 79% accurate or higher.
+
+    Here's the algorithm, predict the passenger survived if:
+    1) If the passenger is female or
+    2) if his/her socioeconomic status is high AND if the passenger is under 18
+
+    Otherwise, your algorithm should predict that the passenger perished in the disaster.
+
+    Or more specifically in terms of coding:
+    female or (high status and under 18)
+
+    You can access the gender of a passenger via passenger['Sex'].
+    If the passenger is male, passenger['Sex'] will return a string "male".
+    If the passenger is female, passenger['Sex'] will return a string "female".
+
+    You can access the socioeconomic status of a passenger via passenger['Pclass']:
+    High socioeconomic status -- passenger['Pclass'] is 1
+    Medium socioeconomic status -- passenger['Pclass'] is 2
+    Low socioeconomic status -- passenger['Pclass'] is 3
+
+    You can access the age of a passenger via passenger['Age'].
+
+    Write your prediction back into the "predictions" dictionary. The
+    key of the dictionary should be the Passenger's id (which can be accessed
+    via passenger["PassengerId"]) and the associated value should be 1 if the
+    passenger survived or 0 otherwise.
+
+    For example, if a passenger is predicted to have survived:
+    passenger_id = passenger['PassengerId']
+    predictions[passenger_id] = 1
+
+    And if a passenger is predicted to have perished in the disaster:
+    passenger_id = passenger['PassengerId']
+    predictions[passenger_id] = 0
+
+    You can also look at the Titanic data that you will be working with
+    at the link below:
+    https://s3.amazonaws.com/content.udacity-data.com/courses/ud359/titanic_data.csv
+    """
+
+    predictions = {}
+    df = pandas.read_csv(file_path)
+    for passenger_index, passenger in df.iterrows():
+        passenger_id = passenger['PassengerId']
+        #
+        # your code here
+        # for example, assuming that passengers who are male
+        # and older than 18 survived:
+        #     if passenger['Sex'] == 'male' or passenger['Age'] < 18:
+        #         predictions[passenger_id] = 1
+        if passenger['Pclass'] == 1 and passenger['Age'] < 18:
+            predictions[passenger_id] = 1
+        elif passenger['Sex'] == 'female':
+            predictions[passenger_id] = 1
+        else:
+            predictions[passenger_id] = 0
+    return predictions  # 79.12% Accuracy
+
+'''#####################################A Custom Heuristic##########################################'''
+
+
+def custom_heuristic(file_path):
+    """
+    You are given a list of Titanic passengers and their associated
+    information. More information about the data can be seen at the link below:
+    http://www.kaggle.com/c/titanic-gettingStarted/data
+
+    For this exercise, you need to write a custom heuristic that will take
+    in some combination of the passenger's attributes and predict if the passenger
+    survived the Titanic disaster.
+
+    Can your custom heuristic beat 80% accuracy?
+
+    The available attributes are:
+    Pclass          Passenger Class
+                    (1 = 1st; 2 = 2nd; 3 = 3rd)
+    Name            Name
+    Sex             Sex
+    Age             Age
+    SibSp           Number of Siblings/Spouses Aboard
+    Parch           Number of Parents/Children Aboard
+    Ticket          Ticket Number
+    Fare            Passenger Fare
+    Cabin           Cabin
+    Embarked        Port of Embarkation
+                    (C = Cherbourg; Q = Queenstown; S = Southampton)
+
+    SPECIAL NOTES:
+    Pclass is a proxy for socioeconomic status (SES)
+    1st ~ Upper; 2nd ~ Middle; 3rd ~ Lower
+
+    Age is in years; fractional if age less than one
+    If the age is estimated, it is in the form xx.5
+
+    With respect to the family relation variables (i.e. SibSp and Parch)
+    some relations were ignored. The following are the definitions used
+    for SibSp and Parch.
+
+    Sibling:  brother, sister, stepbrother, or stepsister of passenger aboard Titanic
+    Spouse:   husband or wife of passenger aboard Titanic (mistresses and fiancees ignored)
+    Parent:   mother or father of passenger aboard Titanic
+    Child:    son, daughter, stepson, or stepdaughter of passenger aboard Titanic
+
+    Write your prediction back into the "predictions" dictionary. The
+    key of the dictionary should be the passenger's id (which can be accessed
+    via passenger["PassengerId"]) and the associating value should be 1 if the
+    passenger survived or 0 otherwise.
+
+    For example, if a passenger is predicted to have survived:
+    passenger_id = passenger['PassengerId']
+    predictions[passenger_id] = 1
+
+    And if a passenger is predicted to have perished in the disaster:
+    passenger_id = passenger['PassengerId']
+    predictions[passenger_id] = 0
+
+    You can also look at the Titanic data that you will be working with
+    at the link below:
+    https://s3.amazonaws.com/content.udacity-data.com/courses/ud359/titanic_data.csv
+    """
+
+    predictions = {}
+    df = pandas.read_csv(file_path)
+    for passenger_index, passenger in df.iterrows():
+        # your code here
+        """After general analysis, notice that the surviving percentage in female group is 74.2%
+        and not surviving percentage in male group is 81.11%. So what we have to do is trying our
+        best to make our prediction close to 74.2% in female group, that is, try to filter those
+        that are not survived in female group.
+        But this does not guarantee the final result is higher than 81.11%. We also need to find
+        those that are survived in the male group, rather than predicting all of them to 0(not survive).
+        """
+        passenger_id = passenger['PassengerId']
+        if passenger['Sex'] == 'female':
+            if passenger['Pclass'] == 3 and passenger['Age'] > 18:
+                predictions[passenger_id] = 0
+            elif (passenger['SibSp'] + passenger['Parch']) >= 4:
+                predictions[passenger_id] = 0
+            else:
+                predictions[passenger_id] = 1
+        elif passenger['Age'] < 18 and passenger['Pclass'] in (1, 2):
+            predictions[passenger_id] = 1
+        else:
+            predictions[passenger_id] = 0
+    return predictions  # 81.82% Accuracy
