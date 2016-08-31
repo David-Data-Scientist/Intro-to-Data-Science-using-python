@@ -89,7 +89,7 @@ if False:
     print("")
     print(np.dot(array_1, array_2))
 
-'''##############################manipulate with pandas###############################################'''
+'''##############################Manipulate with pandas###############################################'''
 
 '''
 The following code is to help you play with the concept of Series in Pandas.
@@ -105,7 +105,7 @@ Please feel free to play around with the concept of Series and see what it does
 http://www.gregreda.com/2013/10/26/intro-to-pandas-data-structures/
 '''
 # Change False to True to create a Series object
-if True:
+if False:
     series = pd.Series(['Dave', 'Cheng-Han', 'Udacity', 42, -1789710578])
     print(series)
 
@@ -115,7 +115,7 @@ creating the series
 '''
 
 # Change False to True to see custom index in action
-if True:
+if False:
     series = pd.Series(['Dave', 'Cheng-Han', 359, 9001],
                        index=['Instructor', 'Curriculum Manager',
                               'Course Number', 'Power Level'])
@@ -125,7 +125,7 @@ if True:
 You can use index to select specific items from the Series
 '''
 # Change False to True to see Series indexing in action
-if True:
+if False:
     series = pd.Series(['Dave', 'Cheng-Han', 359, 9001],
                        index=['Instructor', 'Curriculum Manager',
                               'Course Number', 'Power Level'])
@@ -137,7 +137,7 @@ if True:
 You can also use boolean operators to select specific items from the Series
 '''
 # Change False to True to see boolean indexing in action
-if True:
+if False:
     cuteness = pd.Series([1, 2, 3, 4, 5], index=['Cockroach', 'Fish', 'Mini Pig',
                                                  'Puppy', 'Kitten'])
     print(cuteness > 3)
@@ -163,7 +163,7 @@ constructor:
 2) The associating list will be the values within that column.
 '''
 # Change False to True to see Data frames in action
-if True:
+if False:
     data = {'year': [2010, 2011, 2012, 2011, 2012, 2010, 2011, 2012],
             'team': ['Bears', 'Bears', 'Bears', 'Packers', 'Packers', 'Lions',
                      'Lions', 'Lions'],
@@ -182,7 +182,7 @@ information about your data frame. Some of these functions are:
 4) tail: displays the last five rows of the data set
 '''
 # Change False to True to see these functions in action
-if True:
+if False:
     data = {'year': [2010, 2011, 2012, 2011, 2012, 2010, 2011, 2012],
             'team': ['Bears', 'Bears', 'Bears', 'Packers', 'Packers', 'Lions',
                      'Lions', 'Lions'],
@@ -197,7 +197,7 @@ if True:
     print("")
     print(football.tail())
 
-'''######################################creating a data frame#####################################'''
+'''######################################Creating a data frame 2#####################################'''
 
 
 # Syntax Reminder:
@@ -258,7 +258,7 @@ Also a couple pointers:
 http://www.gregreda.com/2013/10/26/intro-to-pandas-data-structures/
 '''
 # Change False to True to see Series indexing in action
-if True:
+if False:
     data = {'year': [2010, 2011, 2012, 2011, 2012, 2010, 2011, 2012],
             'team': ['Bears', 'Bears', 'Bears', 'Packers', 'Packers', 'Lions',
                      'Lions', 'Lions'],
@@ -283,7 +283,7 @@ You can also combine multiple selection requirements through boolean
 operators like & (and) or | (or)
 '''
 # Change False to True to see boolean indexing in action
-if True:
+if False:
     data = {'year': [2010, 2011, 2012, 2011, 2012, 2010, 2011, 2012],
             'team': ['Bears', 'Bears', 'Bears', 'Packers', 'Packers', 'Lions',
                      'Lions', 'Lions'],
@@ -348,7 +348,7 @@ def avg_medal_count():
     avg_bronze_at_least_one_gold = np.mean(df.bronze[df.gold > 0])
     # OR: avg_bronze_at_least_one_gold = numpy.mean(df['bronze'][df['gold'] >0])
     return avg_bronze_at_least_one_gold
-    
+
 '''#####################################Manipulate with apply function################################'''
 
 
@@ -389,8 +389,8 @@ def avg_medal_count2():
     df = DataFrame(olympic_medal_counts)
 
     # YOUR CODE HERE
-    avg_medal_count2 = df[['gold', 'silver', 'bronze']].apply(np.mean)  # using two square bracket to get the column
-    return avg_medal_count2
+    avg_medal = df[['gold', 'silver', 'bronze']].apply(np.mean)  # using two square bracket to get the column
+    return avg_medal
 
 '''##########################################Using numpy.dot##########################################'''
 
