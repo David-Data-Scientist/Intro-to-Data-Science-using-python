@@ -28,7 +28,8 @@ def add_full_name(path_to_csv, path_to_new_csv):
         # For local use only
         # If you are running this on your own machine add the path to the
         # Lahman baseball csv and a path for the new csv.
-        # The dataset can be downloaded from this website: http://www.seanlahman.com/baseball-archive/statistics
+        # The dataset can be downloaded from this website:
+        # http://www.seanlahman.com/baseball-archive/statistics
         # We are using the file Master.csv
         path_to_csv = ""
         path_to_new_csv = ""
