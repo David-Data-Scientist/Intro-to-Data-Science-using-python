@@ -189,8 +189,20 @@ def fix_turnstile_data(filenames):
         for lines in reader:
             breaks = (len(lines) - 3) / 5  # number of breaks in one line
             for i in range(breaks):
-                result = [lines[0], lines[1], lines[2], lines[3 + 5 * i], lines[4 + 5 * i],
-                          lines[5 + 5 * i], lines[6 + 5 * i], lines[7 + 5 * i]]
+                result = [
+                    lines[0],
+                    lines[1],
+                    lines[2],
+                    lines[
+                        3 + 5 * i],
+                    lines[
+                        4 + 5 * i],
+                    lines[
+                        5 + 5 * i],
+                    lines[
+                        6 + 5 * i],
+                    lines[
+                        7 + 5 * i]]
                 writer.writerow(result)
         input.close()
         output.close()
@@ -260,8 +272,7 @@ def filter_by_regular(filename):
     return turnstile_data
 
 
-'''###################################8 -Get Hourly Entries###########################################'''\
-
+'''###################################8 -Get Hourly Entries###########################################'''
 
 
 def get_hourly_entries(df):
@@ -299,7 +310,9 @@ def get_hourly_entries(df):
 
     """
     # your code here
-    df['ENTRIESn_hourly'] = (df['ENTRIESn'] - df['ENTRIESn'].shift(1)).fillna(1)
+    df['ENTRIESn_hourly'] = (
+        df['ENTRIESn'] -
+        df['ENTRIESn'].shift(1)).fillna(1)
     return df
 
 
@@ -324,17 +337,17 @@ def get_hourly_exits(df):
 
     Example dataframe below:
 
-      Unnamed: 0   C/A  UNIT       SCP     DATEn     TIMEn    DESCn  ENTRIESn    EXITSn  ENTRIESn_hourly  EXITSn_hourly
-    0          0  A002  R051  02-00-00  05-01-11  00:00:00  REGULAR   3144312   1088151                0              0
-    1          1  A002  R051  02-00-00  05-01-11  04:00:00  REGULAR   3144335   1088159               23              8
-    2          2  A002  R051  02-00-00  05-01-11  08:00:00  REGULAR   3144353   1088177               18             18
-    3          3  A002  R051  02-00-00  05-01-11  12:00:00  REGULAR   3144424   1088231               71             54
-    4          4  A002  R051  02-00-00  05-01-11  16:00:00  REGULAR   3144594   1088275              170             44
-    5          5  A002  R051  02-00-00  05-01-11  20:00:00  REGULAR   3144808   1088317              214             42
-    6          6  A002  R051  02-00-00  05-02-11  00:00:00  REGULAR   3144895   1088328               87             11
-    7          7  A002  R051  02-00-00  05-02-11  04:00:00  REGULAR   3144905   1088331               10              3
-    8          8  A002  R051  02-00-00  05-02-11  08:00:00  REGULAR   3144941   1088420               36             89
-    9          9  A002  R051  02-00-00  05-02-11  12:00:00  REGULAR   3145094   1088753              153            333
+         X  C/A   UNIT  SCP       DATEn     TIMEn     DESCn    ENTRIESn  EXITSn  ENTRIESn_hourly EXITSn_hourly
+    0    0  A002  R051  02-00-00  05-01-11  00:00:00  REGULAR   3144312   1088151     0              0
+    1    1  A002  R051  02-00-00  05-01-11  04:00:00  REGULAR   3144335   1088159    23              8
+    2    2  A002  R051  02-00-00  05-01-11  08:00:00  REGULAR   3144353   1088177    18             18
+    3    3  A002  R051  02-00-00  05-01-11  12:00:00  REGULAR   3144424   1088231    71             54
+    4    4  A002  R051  02-00-00  05-01-11  16:00:00  REGULAR   3144594   1088275   170             44
+    5    5  A002  R051  02-00-00  05-01-11  20:00:00  REGULAR   3144808   1088317   214             42
+    6    6  A002  R051  02-00-00  05-02-11  00:00:00  REGULAR   3144895   1088328    87             11
+    7    7  A002  R051  02-00-00  05-02-11  04:00:00  REGULAR   3144905   1088331    10              3
+    8    8  A002  R051  02-00-00  05-02-11  08:00:00  REGULAR   3144941   1088420    36             89
+    9    9  A002  R051  02-00-00  05-02-11  12:00:00  REGULAR   3145094   1088753   153            333
     """
 
     # your code here
@@ -382,6 +395,8 @@ def reformat_subway_dates(date):
     http://docs.python.org/2/library/datetime.html#datetime.datetime.strptime
     """
     # your code here
-    new_date = datetime.datetime.strptime(date, "%m-%d-%y")  # convert string to date format
-    date_formatted = new_date.strftime("%Y-%m-%d")  # specifying a new date format (still date format)
+    new_date = datetime.datetime.strptime(
+        date, "%m-%d-%y")  # convert string to date format
+    # specifying a new date format (still date format)
+    date_formatted = new_date.strftime("%Y-%m-%d")
     return date_formatted
